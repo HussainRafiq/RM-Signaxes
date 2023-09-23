@@ -1,0 +1,87 @@
+﻿@model IEnumerable<RM_Signaxes.Models.OperatorsJobs>
+@{
+    int i = 0;
+}
+
+<h3 class="text-secondary">@ViewBag.Title</h3>
+<hr />
+@if (Model != null)
+{
+    <table class="table table-striped DataTable">
+
+        <thead class="bg-secondary text-white">
+            <tr>
+                <th style="max-width:50px;">S.no</th>
+                <th style="width: 17%; min-width: 250px;">Machine</th>
+                <th style="width: 10%; min-width: 100px;">Job</th>
+                <th style="flex:auto">Start At</th>
+                <th style="flex:auto">Ends At</th>
+                <th style="flex:auto">Duration</th>
+                <th style="flex:auto">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.Count() > 0)
+            {
+
+                foreach (var job in Model)
+                {
+                    i++;
+
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            <h4 style="margin:0px; line-height:15px;">@job.Machine.Name</h4>
+                            <sub style=" line-height: 6px;">@job.Machine.Make @job.Machine.Model @job.Machine.Area @job.Machine.Department</sub>
+
+                        </td>
+                        <td>
+                            <h4>@job.Job.Title</h4>
+                        </td>
+                        <td style="padding-top: 12px; min-width: 250px;">
+                            <h6 style="margin:0px; font-size:15px; font-weight:bold; line-height:15px;">@job.Opened.ToString("ddd MMM dd, yyyy hh:mm tt")</h6>
+                            <sub style=" line-height: 6px;"><b>Starts At</b></sub>
+                        </td>
+                        @if (job.Closed != null)
+                        {
+                            <td style="padding-top: 12px; min-width: 250px;">
+                                <h6 style="margin:0px; font-size:15px; font-weight:bold; line-height:15px;">@job.Closed.Value.ToString("ddd MMM dd, yyyy hh:mm tt")</h6>
+                                <sub style=" line-height: 6px;"><b>Ends At</b></sub>
+                            </td>
+
+                            <td style="padding-top:12px;">
+                                <h6 style="margin:0px; font-size:15px; font-weight:bold; line-height:15px;">@{ var time = new TimeSpan(0, 0, Convert.ToInt32(job.TotalSpentSeconds.Value)); var days = time.Days; var hours = time.Hours; var min = time.Minutes;}@(days>0?days+" D":"") @(hours>0? hours + " H":"") @(min>0? (min + " Min"):"")</h6>
+                                <sub style=" line-height: 6px;"><b>Duration</b></sub>
+                            </td>
+                        } @if (job.Closed == null)
+                        {
+                            <td style="text-align:right">
+                            </td>
+                            <td style="text-align:right">
+                            </td>
+                        }
+                        <td class="@(job.Closed != null ? "bg-danger text-white" : "bg-success text-white")" style="padding-top:12px;">
+                            <h6 style="margin:0px; font-weight:bold; line-height:15px;">@(job.Closed != null ? "Closed" : "Opened")</h6>
+                            <sub style=" line-height: 6px;"><b>State</b></sub>
+                        </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="7">Not Any Jobs Available</td></tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+else
+{
+    <p class="text-danger">Some Error Occurred</p>
+}
+

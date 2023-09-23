@@ -1,0 +1,86 @@
+﻿@model IEnumerable<RM_Signaxes.Models.Actor>
+
+@{
+    ViewBag.Title = "Manage Operators";
+}
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <h3 class="text-secondary">Operators <b>Management</b></h3>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <p style="text-align:right">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-secondary mt-1" })
+        </p>
+    </div>
+</div>
+
+
+<table class="table table-striped DataTable">
+    <thead>
+        <tr class="bg-secondary" style="color:white">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (Model.Count() > 0)
+    {
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Designation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SkillLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Create", new { id = item.Id }, new { @class = "btn btn-secondary btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                        @Html.ActionLink("View Jobs", "Job", "OperatorJob", new { id = item.Id, type = "operator" }, new { @class = "btn btn-secondary btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    }
+    else
+    {
+        <tr>
+            <td colspan="6" style="text-align:center">No Data Found</td>
+        </tr>
+    }
+
+</table>

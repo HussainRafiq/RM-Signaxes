@@ -1,0 +1,65 @@
+﻿@model IEnumerable<RM_Signaxes.Models.Job>
+
+@{
+    ViewBag.Title = "Manage Predefined Jobs";
+}
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <h3 class="text-secondary">Predefined Jobs <b>Management</b></h3>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <p style="text-align:right">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-secondary mt-1" })
+        </p>
+    </div>
+</div>
+<table class="table table-striped DataTable">
+    <thead>
+        <tr class="bg-secondary" style="color:white">
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Added By
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count() > 0)
+    {
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddedBy.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Create", new { id = item.Id }, new { @class = "btn btn-secondary btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                        @Html.ActionLink("View Jobs", "Job","OperatorJob", new { id = item.Id,type="job" }, new { @class = "btn btn-secondary btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tr>
+            <td colspan="4" style="text-align:center">No Data Found</td>
+        </tr>
+    }
+
+</table>

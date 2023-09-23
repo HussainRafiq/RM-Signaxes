@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h5 class="text-secondary"><i class="fa fa-dashboard"></i> Dashboard</h5>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-secondary">
+                <div class="inner">
+                    <h3> @ViewBag.OperatorsCount </h3>
+                    <p>Total Operators</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                </div>
+                <a href="/Admin/Operator" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-dark">
+                <div class="inner">
+                    <h3>  @ViewBag.JobsCount </h3>
+                    <p> Predefined Jobs </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                </div>
+                <a href="/Admin/Job" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-secondary">
+                <div class="inner">
+                    <h3> @ViewBag.MachinesCount </h3>
+                    <p> Machines </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </div>
+                <a href="/Admin/Machines" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-dark">
+                <div class="inner">
+                    <h3> @ViewBag.OpenedJobs </h3>
+                    <p> Opened Jobs </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-anchor"></i>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+

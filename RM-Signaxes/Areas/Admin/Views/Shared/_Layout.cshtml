@@ -1,0 +1,173 @@
+﻿@{ 
+    var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
+    var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Pfizer Pakistan Ltd</title>
+    <link rel="icon" href="https://www.pfizer.com.pk/images/942d1d16b116fad649712dbb5a865728.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js" defer></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+<style>
+    .bg-secondary {
+        background-color: #001233 !important;
+    }
+
+    .btn-secondary {
+        background-color: #001233 !important;
+    }
+
+    .text-secondary {
+        color: #001233 !important;
+    }
+
+    .card-box {
+        position: relative;
+        color: #fff;
+        padding: 20px 10px 40px;
+        margin: 20px 0px;
+    }
+
+    .card-box:hover {
+        text-decoration: none;
+        color: #f1f1f1;
+    }
+
+        .card-box:hover .icon i {
+            font-size: 100px;
+            transition: 1s;
+            -webkit-transition: 1s;
+        }
+
+    .card-box .inner {
+        padding: 5px 10px 0 10px;
+    }
+
+    .card-box h3 {
+        font-size: 27px;
+        font-weight: bold;
+        margin: 0 0 8px 0;
+        white-space: nowrap;
+        padding: 0;
+        text-align: left;
+    }
+
+    .card-box p {
+        font-size: 15px;
+    }
+
+    .card-box .icon {
+        position: absolute;
+        top: auto;
+        bottom: 5px;
+        right: 5px;
+        z-index: 0;
+        font-size: 72px;
+        color: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-box .card-box-footer {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        text-align: center;
+        padding: 3px 0;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .card-box:hover .card-box-footer {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .bg-blue {
+        background-color: #00c0ef !important;
+    }
+
+    .bg-green {
+        background-color: #00a65a !important;
+    }
+
+    .bg-orange {
+        background-color: #f39c12 !important;
+    }
+
+    .bg-red {
+        background-color: #d9534f !important;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <div class="container-fluid">
+            <a href="\Admin\Home" class="navbar-brand"><img height="28" src="https://www.pfizer.com.pk/images/942d1d16b116fad649712dbb5a865728.png" /></a>
+
+            @if (Session["AuthAdminUser"] != null)
+            {
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            }
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                @if (Session["AuthAdminUser"] != null)
+                {
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a href="\Admin\Home" class="nav-link @(controller.ToString().ToLower()=="home" && action.ToString().ToLower()=="index"?"active":"")">Dashboard</a></li>
+                        <li class="nav-item"><a href="\Admin\Operator" class="nav-link  @(controller.ToString().ToLower()=="operator"?"active":"")">Manage Operator</a></li>
+                        <li class="nav-item"><a href="\Admin\Job" class="nav-link  @(controller.ToString().ToLower()=="job"?"active":"")">Manage Predefined Jobs</a></li>
+                        <li class="nav-item"><a href="\Admin\Machine" class="nav-link  @(controller.ToString().ToLower()=="machines"?"active":"")">Manage Machines</a></li>
+                        <li class="nav-item"><a href="\Admin\Auth\Logout" class="nav-link">Logout</a></li>
+
+                    </ul>
+                }
+
+            </div>
+        </div>
+    </nav>
+    @if (TempData["Error"] != null)
+    {
+        <p class="alert alert-danger">@TempData["Error"]</p>
+    }@if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success">@TempData["Success"]</p>
+    }
+    <div class="container body-content pt-4">
+        @RenderBody()
+
+    </div>
+
+    <footer>
+        <div class="container body-content">
+
+            <hr />
+            <p>&copy; @DateTime.Now.Year - Pfizer Pakistan Ltd</p>
+        </div>
+
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $(".DataTable").DataTable();
+        });
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
